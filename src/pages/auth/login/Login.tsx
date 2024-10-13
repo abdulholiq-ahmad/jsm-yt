@@ -10,12 +10,6 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("token");
-
-    if (accessToken) {
-      navigate("/");
-    }
-
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === "token") {
         dispatch(logOut());

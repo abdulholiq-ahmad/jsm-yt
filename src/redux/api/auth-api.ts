@@ -28,7 +28,7 @@ const authApi = api.injectEndpoints({
         }
       },
     }),
-    resgiterRequest: build.mutation({
+    registerRequest: build.mutation({
       query: (body: object) => ({
         url: "/api/auth/register",
         method: "POST",
@@ -57,4 +57,4 @@ const authApi = api.injectEndpoints({
   }),
 });
 
-export const { useLogInRequestMutation, useLogOutRequestMutation, useCheckUserQuery } = authApi;
+export const { useLogInRequestMutation, useLogOutRequestMutation, useCheckUserQuery, useRegisterRequestMutation } = authApi;

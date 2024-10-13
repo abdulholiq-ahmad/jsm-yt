@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 const App: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const fromRegister = localStorage.getItem("fromRegister") === "true";
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
@@ -21,20 +22,25 @@ const App: React.FC = () => {
     const token = localStorage.getItem("token");
     const path = window.location.pathname;
 
-    if (token) {
-      if (path === "/auth/login" || path === "/auth/register") {
-        navigate("/");
+    if (path === "/auth/login") {
+      if (token) {
+        if (!fromRegister) {
+          navigate("/");
+        }
       }
+    } else if (path === "/auth/register") {
+      localStorage.setItem("fromRegister", "true");
     } else {
-      if (path !== "/auth/login" && path !== "/auth/register") {
+      if (!token) {
         navigate("/auth/login");
       }
     }
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
+      localStorage.removeItem("fromRegister");
     };
-  }, [navigate, dispatch]);
+  }, [navigate, dispatch, fromRegister]);
 
   return (
     <>
