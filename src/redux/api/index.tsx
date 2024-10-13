@@ -1,16 +1,16 @@
-import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
-// import { logout } from '../slices/authSlice';
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { logOut } from "../slice/auth-slice";
 
 const baseQuery = async (args: any, api: any, extraOptions: any) => {
-  const { dispatch } = api
+  const { dispatch } = api;
   const rawBaseQuery = fetchBaseQuery({
-    baseUrl: "https://dummyjson.com",
+    baseUrl: import.meta.env.VITE_API_BASE_URL,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("x-auth-token")
+      const token = localStorage.getItem("x-auth-token");
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
+        headers.set("Authorization", `Bearer ${token}`);
       }
-      return headers
+      return headers;
     },
   });
 
@@ -19,17 +19,17 @@ const baseQuery = async (args: any, api: any, extraOptions: any) => {
   if (result.error) {
     const { status } = result.error;
     if (status === 401 || status === 403) {
-      console.error('Unauthorized access - Redirecting to login...');
-      // dispatch(logout())
+      console.error("Unauthorized access - Redirecting to login...");
+      dispatch(logOut());
     }
   }
   return result;
 };
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 0 })
+const baseQueryWithRetry = retry(baseQuery, { maxRetries: 1 });
 
 export const api = createApi({
-  reducerPath: 'myApi',
+  reducerPath: "myApi",
   baseQuery: baseQueryWithRetry,
-  tagTypes: ["Product"], 
+  tagTypes: ["User"],
   endpoints: () => ({}),
-})
+});
