@@ -2,14 +2,12 @@ import { api } from "../api";
 
 const authApi = api.injectEndpoints({
   endpoints: (build) => ({
-    checkUser: build.query({
-      query: () => ({
-        url: "/auth/access",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-        },
-      }),
-    }),
+    // getUsers: build.query({
+    //   query: (params) => ({
+    //     url: "/auth/user/all",
+    //     params,
+    //   }),
+    // }),
     logInRequest: build.mutation({
       query: (body: object) => ({
         url: "/api/auth/login",
@@ -57,4 +55,4 @@ const authApi = api.injectEndpoints({
   }),
 });
 
-export const { useLogInRequestMutation, useLogOutRequestMutation, useCheckUserQuery, useRegisterRequestMutation } = authApi;
+export const { useLogInRequestMutation, useLogOutRequestMutation, useRegisterRequestMutation } = authApi;

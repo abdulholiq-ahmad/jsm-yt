@@ -1,10 +1,10 @@
-import Header from "../../components/header/Header";
+import AsideRoutes from "@/components/aside-routes/AsideRoutes";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <main>
-      <Header />
+    <main className="flex">
+      <AsideRoutes />
       <Outlet />
     </main>
   );
