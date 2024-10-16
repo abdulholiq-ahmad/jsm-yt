@@ -8,7 +8,21 @@ const authApi = api.injectEndpoints({
         params,
       }),
     }),
+    follow: build.mutation({
+      query: (username) => ({
+        url: `/api/user/follow/${username}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["User"],
+    }),
+    unFollow: build.mutation({
+      query: (username) => ({
+        url: `/api/user/unfollow/${username}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
-export const { useGetUsersQuery } = authApi;
+export const { useGetUsersQuery, useFollowMutation, useUnFollowMutation } = authApi;

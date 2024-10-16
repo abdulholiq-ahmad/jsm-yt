@@ -48,7 +48,7 @@ const AsideRoutes = () => {
     },
   ];
   return (
-    <aside className="w-72 bg-aside h-screen font-inter pt-12 pb-8 px-6 text-white border-r border-[#1F1F22]">
+    <aside className="w-[420px] bg-aside h-screen font-inter pt-12 pb-8 px-6 text-white border-r border-[#1F1F22]">
       <img src={Logo} alt="Logo" title="Logo" width={171} />
 
       <span className="flex items-center gap-2.5 my-11">

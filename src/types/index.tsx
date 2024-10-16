@@ -26,3 +26,11 @@ export interface Register {
   };
   isLoading: boolean;
 }
+
+export interface UserData {
+  _id: string;
+  photo: string;
+  username: string;
+  fullName: string;
+  followers: [];
+}

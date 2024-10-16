@@ -15,6 +15,7 @@ const authApi = api.injectEndpoints({
           const { data } = await queryFulfilled;
           console.log("Response data:", data);
           localStorage.setItem("token", data?.accessToken || "");
+          localStorage.setItem("currentUserId", data?.user?._id || "");
         } catch (error) {
           console.error("Failed to save token:", error);
         }
