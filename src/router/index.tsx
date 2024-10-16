@@ -3,8 +3,12 @@ import { useRoutes } from "react-router-dom";
 import { SuspenseComponent as Suspense } from "../utils";
 
 const Home: LazyExoticComponent<any> = lazy(() => import("../pages/home/Home"));
-const About: LazyExoticComponent<any> = lazy(() => import("../pages/about/About"));
-const Company: LazyExoticComponent<any> = lazy(() => import("../pages/company/Company"));
+const Explore: LazyExoticComponent<any> = lazy(() => import("../pages/explore/Explore"));
+const People: LazyExoticComponent<any> = lazy(() => import("../pages/people/People"));
+const Saved: LazyExoticComponent<any> = lazy(() => import("../pages/saved/Saved"));
+const Reels: LazyExoticComponent<any> = lazy(() => import("../pages/reels/Reels"));
+const Chats: LazyExoticComponent<any> = lazy(() => import("../pages/chats/Chats"));
+const CreatePost: LazyExoticComponent<any> = lazy(() => import("../pages/create-post/CreatePost"));
 const Layout: LazyExoticComponent<any> = lazy(() => import("../pages/layout/Layout"));
 const Auth: LazyExoticComponent<any> = lazy(() => import("../pages/auth/Auth"));
 const Login: LazyExoticComponent<any> = lazy(() => import("../pages/auth/login/Login"));
@@ -29,22 +33,52 @@ const Routers = () => {
           ),
         },
         {
-          path: "/about",
+          path: "/explore",
           element: (
             <Suspense>
-              <About />
+              <Explore />
             </Suspense>
           ),
-          children: [
-            {
-              path: "company",
-              element: (
-                <Suspense>
-                  <Company />
-                </Suspense>
-              ),
-            },
-          ],
+        },
+        {
+          path: "/people",
+          element: (
+            <Suspense>
+              <People />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/saved",
+          element: (
+            <Suspense>
+              <Saved />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/reels",
+          element: (
+            <Suspense>
+              <Reels />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/chats",
+          element: (
+            <Suspense>
+              <Chats />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/create-post",
+          element: (
+            <Suspense>
+              <CreatePost />
+            </Suspense>
+          ),
         },
       ],
     },

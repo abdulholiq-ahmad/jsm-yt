@@ -2,12 +2,6 @@ import { api } from "../api";
 
 const authApi = api.injectEndpoints({
   endpoints: (build) => ({
-    // getUsers: build.query({
-    //   query: (params) => ({
-    //     url: "/auth/user/all",
-    //     params,
-    //   }),
-    // }),
     logInRequest: build.mutation({
       query: (body: object) => ({
         url: "/api/auth/login",

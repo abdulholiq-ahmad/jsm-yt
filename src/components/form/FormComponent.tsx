@@ -18,6 +18,7 @@ const formSchema = z.object({
 
 const FormComponent: React.FC = () => {
   const [logInRequest, { data, isSuccess, isLoading, isError, error }] = useLogInRequestMutation();
+  console.log(data);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,7 +43,6 @@ const FormComponent: React.FC = () => {
     if (isSuccess) {
       const accessToken = data?.accessToken;
       if (accessToken) {
-        localStorage.setItem("token", accessToken);
         dispatch(signIn(accessToken));
         navigate("/");
       } else if (isError) {
