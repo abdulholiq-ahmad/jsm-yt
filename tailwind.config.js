@@ -20,6 +20,7 @@ module.exports = {
         aside: {
           DEFAULT: "#000000",
           500: "#1E1E1E",
+          600: "#101012",
         },
         infoText: {
           DEFAULT: "#7878A3",

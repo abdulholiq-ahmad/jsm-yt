@@ -9,10 +9,11 @@ import ChatsIcon from "@/assets/images/chats.svg";
 import CreatePostIcon from "@/assets/images/create-post.svg";
 import LogOutIcon from "@/assets/images/logout.svg";
 import SettingIcon from "@/assets/images/setting.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logOut } from "@/redux/slice/auth-slice";
+import { useDispatch } from "react-redux";
 
-const AsideRoutes = () => {
+const AsideRoutes = ({ data }) => {
   const routes = [
     {
       title: "Home",
@@ -61,19 +62,18 @@ const AsideRoutes = () => {
     },
   ];
 
-  const handleLogOut = () => {
-    logOut();
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
-    <aside className="w-[420px] bg-aside h-screen font-inter pt-12 px-6 text-white border-r border-[#1F1F22] flex flex-col justify-between">
+    <aside className=" bg-aside h-screen font-inter pt-12 px-6 text-white border-r border-[#1F1F22] flex flex-col justify-between">
       <img src={Logo} alt="Logo" title="Logo" width={171} />
 
       <span className="flex items-center gap-2.5 my-5">
-        <AvatarComponent />
+        <AvatarComponent data={data} />
         <span className="text-white">
-          <h4 className="text-lg font-semibold capitalize tracking-wide">adminbek</h4>
-          <p className="text-infoText text-sm">@admin</p>
+          <h4 className="text-lg font-semibold capitalize tracking-wide">{data?.username}</h4>
+          <p className="text-infoText text-sm">{data?.email}</p>
         </span>
       </span>
       <nav className="">
@@ -112,8 +112,8 @@ const AsideRoutes = () => {
           <li key={index} className="group relative">
             <button
               onClick={() => {
-                console.log("Logout");
-                handleLogOut();
+                dispatch(logOut());
+                navigate("/auth/login");
               }}
               className="text-lg font-medium p-2 px-4 flex items-start rounded-md gap-2.5 w-full hover:bg-hoverPrimary"
             >
