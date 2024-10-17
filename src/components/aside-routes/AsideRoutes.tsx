@@ -69,7 +69,7 @@ const AsideRoutes = () => {
     <aside className="w-[420px] bg-aside h-screen font-inter pt-12 px-6 text-white border-r border-[#1F1F22] flex flex-col justify-between">
       <img src={Logo} alt="Logo" title="Logo" width={171} />
 
-      <span className="flex items-center gap-2.5 my-11">
+      <span className="flex items-center gap-2.5 my-5">
         <AvatarComponent />
         <span className="text-white">
           <h4 className="text-lg font-semibold capitalize tracking-wide">adminbek</h4>
@@ -77,20 +77,20 @@ const AsideRoutes = () => {
         </span>
       </span>
       <nav className="">
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-2">
           {routes.map((route, index) => (
             <li key={index} className="group relative">
               <NavLink
                 to={route.path}
                 className={({ isActive }) =>
                   isActive
-                    ? "text-lg font-bold bg-hoverPrimary p-4 flex items-start rounded-md gap-2.5"
-                    : "font-medium text-lg group-hover:bg-hoverPrimary p-4 flex items-start rounded-md gap-2.5 transition-all ease-in duration-150"
+                    ? "text-lg font-bold bg-hoverPrimary p-2 px-4 flex items-start rounded-md gap-2.5"
+                    : "font-medium text-lg group-hover:bg-hoverPrimary p-2 px-4 flex items-start rounded-md gap-2.5 transition-all ease-in duration-150"
                 }
               >
                 {({ isActive }) => (
                   <>
-                    {isActive ? <span className="bg-hoverPrimary absolute -left-20 top-0 p-8 rounded-full "></span> : null}
+                    {isActive ? <span className="bg-hoverPrimary absolute -left-16 top-0 p-6 rounded-full "></span> : null}
                     <img
                       src={route.icon}
                       alt="Home icon"
@@ -107,7 +107,7 @@ const AsideRoutes = () => {
         </ul>
       </nav>
 
-      <ul className="mt-auto">
+      <ul className="mt-auto mb-[10px]">
         {settingData.map((data, index) => (
           <li key={index} className="group relative">
             <button
@@ -115,7 +115,7 @@ const AsideRoutes = () => {
                 console.log("Logout");
                 handleLogOut();
               }}
-              className="text-lg font-medium p-4 flex items-start rounded-md gap-2.5 w-full hover:bg-hoverPrimary"
+              className="text-lg font-medium p-2 px-4 flex items-start rounded-md gap-2.5 w-full hover:bg-hoverPrimary"
             >
               <img className="group-hover:brightness-0 group-hover:invert" src={data.icon} alt="" />
               <p>{data.title}</p>
