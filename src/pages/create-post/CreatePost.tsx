@@ -6,7 +6,7 @@ import LocationInput from "@/components/location-input/LocationInput";
 import AltPhoto from "@/components/alt-photo/AltPhoto";
 
 const CreatePost: FC = () => {
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log("submit");
   };
@@ -18,13 +18,13 @@ const CreatePost: FC = () => {
           <h2 className="font-inter text-4xl font-bold">Create Post</h2>
         </div>
 
-        <form onSubmit={() => handleSubmit} action="" className="flex flex-col">
+        <form onSubmit={handleSubmit} action="" className="flex flex-col">
           <Caption />
           <AddPhoto />
           <LocationInput />
           <AltPhoto />
 
-          <button className="inline-block p-2 bg-hoverPrimary rounded-lg max-w-[120px] ml-auto" type="submit">
+          <button className="inline-block p-2 bg-hoverPrimary rounded-lg max-w-[120px] ml-auto" onSubmit={handleSubmit}>
             Share Post
           </button>
         </form>

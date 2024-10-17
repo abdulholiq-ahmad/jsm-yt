@@ -6,9 +6,9 @@ const Home = () => {
     <>
       <h1 className="sr-only">Home feed</h1>
       <div className="flex">
-        <div className="flex flex-col w-full font-inter text-white overflow-hidden">
+        <div className="flex flex-col w-full font-inter text-white h-screen">
           <Header />
-          <main className="w-full bg-aside h-full px-14">
+          <main className="w-full bg-aside px-14 overflow-auto h-screen">
             <div>
               <h2 className="text-3xl font-bold my-10">Home Feed</h2>
             </div>

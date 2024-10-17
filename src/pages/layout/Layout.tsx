@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <>
       <div className="grid grid-cols-6">
-        <div className="col-span-1">
+        <div className="col-span-1 sticky top-0 left-0 z-30">
           <AsideRoutes data={profile} />
         </div>
         <div className="col-span-5">
