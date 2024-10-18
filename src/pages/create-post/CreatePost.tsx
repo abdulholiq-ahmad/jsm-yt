@@ -1,15 +1,47 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Caption from "@/components/caption/Caption";
 import createPostImg from "../../assets/images/create-post.svg";
 import AddPhoto from "@/components/add-photo/AddPhoto";
 import LocationInput from "@/components/location-input/LocationInput";
 import AltPhoto from "@/components/alt-photo/AltPhoto";
+import { useSetPostMutation } from "@/redux/api/user-api";
 
 const CreatePost: FC = () => {
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log("submit");
+  const [files, setFiles] = useState<File[]>([]);
+  const [fileURLs, setFileURLs] = useState<string[]>([]);
+  const [caption, setCaption] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [contentAlt, setContentAlt] = useState<string>("");
+
+  const [uploadPost] = useSetPostMutation({});
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = Array.from(e.target.files as FileList);
+    const newFileURLs = selectedFiles.map((file) => URL.createObjectURL(file));
+    setFiles(selectedFiles);
+    setFileURLs(newFileURLs);
   };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    files.forEach((file) => {
+      formData.append("images", file);
+    });
+
+    const newPost = {
+      content: fileURLs,
+      caption,
+      location,
+      content_alt: contentAlt,
+    };
+
+    uploadPost(newPost)
+      .unwrap()
+      .then((res) => newPost);
+  };
+
   return (
     <div className="flex w-full font-inter text-white bg-aside h-full">
       <div className="w-full px-14 pt-20">
@@ -18,13 +50,15 @@ const CreatePost: FC = () => {
           <h2 className="font-inter text-4xl font-bold">Create Post</h2>
         </div>
 
-        <form onSubmit={handleSubmit} action="" className="flex flex-col">
-          <Caption />
-          <AddPhoto />
-          <LocationInput />
-          <AltPhoto />
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <Caption handleCaptionChange={(value) => setCaption(value)} />
 
-          <button className="inline-block p-2 bg-hoverPrimary rounded-lg max-w-[120px] ml-auto" onSubmit={handleSubmit}>
+          <AddPhoto handleFileChange={handleFileChange} url={fileURLs} />
+
+          <LocationInput handleOnChange={(value) => setLocation(value)} />
+          <AltPhoto handleOnChange={(value) => setContentAlt(value)} />
+
+          <button className="inline-block p-2 bg-hoverPrimary rounded-lg max-w-[120px] ml-auto" type="submit">
             Share Post
           </button>
         </form>

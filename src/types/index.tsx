@@ -34,3 +34,13 @@ export interface UserData {
   fullName: string;
   followers: [];
 }
+
+export interface PostData {
+  id?: string;
+  content: string[];
+  contentAlt: string;
+  caption: string;
+  location: string;
+  createdAt?: string;
+  user?: UserData;
+}

@@ -1,7 +1,12 @@
 import AsideUsers from "@/components/aside-users/AsideUsers";
 import Header from "@/components/header/Header";
+import { useGetFeedQuery } from "@/redux/api/user-api";
+import { FC, useState } from "react";
 
-const Home = () => {
+const Home: FC = () => {
+  const { data: feedData } = useGetFeedQuery({ limit: 10 });
+  console.log(feedData);
+
   return (
     <>
       <h1 className="sr-only">Home feed</h1>

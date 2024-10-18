@@ -1,13 +1,18 @@
 import { FC } from "react";
 import LocationIcon from "../../assets/images/map-point.svg";
 
-const LocationInput: FC = () => {
+interface LocationInputProps {
+  handleOnChange: (value: string) => void;
+}
+
+const LocationInput: FC<LocationInputProps> = ({ handleOnChange }) => {
   return (
     <>
       <div className="flex flex-col mb-3">
         <h2 className="text-lg font-inter font-medium mb-3">Location</h2>
         <div className="relative">
           <input
+            onChange={(e) => handleOnChange(e.target.value)}
             className="w-full bg-aside-600 rounded-xl px-4 py-4 outline-none focus-within:ring-2 focus-within:ring-hoverPrimary text-white"
             type="text"
           />
