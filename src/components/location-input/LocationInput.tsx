@@ -3,9 +3,10 @@ import LocationIcon from "../../assets/images/map-point.svg";
 
 interface LocationInputProps {
   handleOnChange: (value: string) => void;
+  value: string;
 }
 
-const LocationInput: FC<LocationInputProps> = ({ handleOnChange }) => {
+const LocationInput: FC<LocationInputProps> = ({ handleOnChange, value }) => {
   return (
     <>
       <div className="flex flex-col mb-3">
@@ -15,6 +16,7 @@ const LocationInput: FC<LocationInputProps> = ({ handleOnChange }) => {
             onChange={(e) => handleOnChange(e.target.value)}
             className="w-full bg-aside-600 rounded-xl px-4 py-4 outline-none focus-within:ring-2 focus-within:ring-hoverPrimary text-white"
             type="text"
+            value={value}
           />
           <img className="absolute top-3.5 right-3.5" src={LocationIcon} alt="Location icon" width={20} />
         </div>

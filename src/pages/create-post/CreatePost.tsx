@@ -39,7 +39,14 @@ const CreatePost: FC = () => {
 
     uploadPost(newPost)
       .unwrap()
-      .then((res) => newPost);
+      .then((res) => console.log(res))
+      .finally(() => {
+        setFiles([]);
+        setFileURLs([]);
+        setCaption("");
+        setLocation("");
+        setContentAlt("");
+      });
   };
 
   return (
@@ -51,12 +58,10 @@ const CreatePost: FC = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col">
-          <Caption handleCaptionChange={(value) => setCaption(value)} />
-
+          <Caption handleCaptionChange={(value) => setCaption(value)} value={caption} />
           <AddPhoto handleFileChange={handleFileChange} url={fileURLs} />
-
-          <LocationInput handleOnChange={(value) => setLocation(value)} />
-          <AltPhoto handleOnChange={(value) => setContentAlt(value)} />
+          <LocationInput handleOnChange={(value) => setLocation(value)} value={location} />
+          <AltPhoto handleOnChange={(value) => setContentAlt(value)} value={contentAlt} />
 
           <button className="inline-block p-2 bg-hoverPrimary rounded-lg max-w-[120px] ml-auto" type="submit">
             Share Post

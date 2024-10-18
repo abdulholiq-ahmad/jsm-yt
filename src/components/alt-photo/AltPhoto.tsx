@@ -2,9 +2,10 @@ import { FC } from "react";
 
 interface AltPhotoProps {
   handleOnChange: (value: string) => void;
+  value: string;
 }
 
-const AltPhoto: FC<AltPhotoProps> = ({ handleOnChange }) => {
+const AltPhoto: FC<AltPhotoProps> = ({ handleOnChange, value }) => {
   return (
     <>
       <div className="flex flex-col mb-5">
@@ -14,6 +15,7 @@ const AltPhoto: FC<AltPhotoProps> = ({ handleOnChange }) => {
             onChange={(e) => handleOnChange(e.target.value)}
             className="w-full bg-aside-600 rounded-xl px-4 py-4 outline-none focus-within:ring-2 focus-within:ring-hoverPrimary text-white"
             type="text"
+            value={value}
           />
         </div>
       </div>
