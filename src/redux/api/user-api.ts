@@ -33,6 +33,7 @@ const authApi = api.injectEndpoints({
         url: `/api/user/feed?limit=${limit}`,
         method: "GET",
       }),
+      providesTags: ["User"],
     }),
     setPost: build.mutation({
       query: (body) => ({
@@ -40,6 +41,14 @@ const authApi = api.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["User"],
+    }),
+    getReels: build.query({
+      query: () => ({
+        url: "/api/reel",
+        method: "GET",
+      }),
+      providesTags: ["User"],
     }),
   }),
 });
