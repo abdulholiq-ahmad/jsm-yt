@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   token: localStorage.getItem("token") || null,
+  profile: localStorage.getItem("profile") || null,
 };
 
 const authSlice = createSlice({
@@ -16,6 +17,10 @@ const authSlice = createSlice({
     logOut: (state) => {
       state.token = null;
       localStorage.removeItem("token");
+    },
+    profile: (state, action) => {
+      state.profile = action.payload;
+      localStorage.setItem("profile", state.profile ?? "");
     },
   },
 });

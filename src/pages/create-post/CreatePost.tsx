@@ -5,6 +5,7 @@ import AddPhoto from "@/components/add-photo/AddPhoto";
 import LocationInput from "@/components/location-input/LocationInput";
 import AltPhoto from "@/components/alt-photo/AltPhoto";
 import { useSetPostMutation } from "@/redux/api/user-api";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost: FC = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -12,8 +13,9 @@ const CreatePost: FC = () => {
   const [caption, setCaption] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [contentAlt, setContentAlt] = useState<string>("");
-
   const [uploadPost] = useSetPostMutation({});
+
+  const navigate = useNavigate();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files as FileList);
@@ -46,6 +48,8 @@ const CreatePost: FC = () => {
         setCaption("");
         setLocation("");
         setContentAlt("");
+
+        navigate("/");
       });
   };
 

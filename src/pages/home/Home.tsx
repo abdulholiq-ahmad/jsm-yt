@@ -1,11 +1,11 @@
 import AsideUsers from "@/components/aside-users/AsideUsers";
 import Header from "@/components/header/Header";
+import Post from "@/components/post/Post";
 import { useGetFeedQuery } from "@/redux/api/user-api";
-import { FC, useState } from "react";
+import { FC } from "react";
 
 const Home: FC = () => {
   const { data: feedData } = useGetFeedQuery({ limit: 10 });
-  console.log(feedData);
 
   return (
     <>
@@ -17,7 +17,9 @@ const Home: FC = () => {
             <div>
               <h2 className="text-3xl font-bold my-10">Home Feed</h2>
             </div>
-            <div className="px-4 py-2 bg-[#09090A] w-full h-full rounded-3xl border border-[#1F1F22]"></div>
+            <div className="px-4 py-2 bg-[#09090A] w-full h-full rounded-3xl border border-[#1F1F22]">
+              <Post data={feedData} />
+            </div>
           </main>
         </div>
         <AsideUsers />
