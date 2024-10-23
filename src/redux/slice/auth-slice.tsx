@@ -18,12 +18,13 @@ const authSlice = createSlice({
       state.token = null;
       localStorage.removeItem("token");
     },
+
     profile: (state, action) => {
       state.profile = action.payload;
-      localStorage.setItem("profile", state.profile ?? "");
+      localStorage.setItem("profile", JSON.stringify(state.profile) ?? "");
     },
   },
 });
 
-export const { signIn, logOut } = authSlice.actions;
+export const { signIn, logOut, profile } = authSlice.actions;
 export default authSlice.reducer;

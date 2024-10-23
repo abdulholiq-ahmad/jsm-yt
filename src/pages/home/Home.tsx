@@ -18,7 +18,7 @@ const Home: FC = () => {
               <h2 className="text-3xl font-bold my-10">Home Feed</h2>
             </div>
             <div className="px-4 py-2 bg-[#09090A] w-full h-full rounded-3xl border border-[#1F1F22]">
-              <Post data={feedData} />
+              <Post data={feedData?.posts} />
             </div>
           </main>
         </div>

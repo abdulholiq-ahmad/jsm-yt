@@ -1,6 +1,7 @@
 import { lazy, LazyExoticComponent } from "react";
 import { useRoutes } from "react-router-dom";
 import { SuspenseComponent as Suspense } from "../utils";
+import NotFound from "@/pages/not-found/NotFound";
 
 const Home: LazyExoticComponent<any> = lazy(() => import("../pages/home/Home"));
 const Explore: LazyExoticComponent<any> = lazy(() => import("../pages/explore/Explore"));
@@ -32,43 +33,12 @@ const Routers = () => {
             </Suspense>
           ),
         },
-        {
-          path: "/explore",
-          element: (
-            <Suspense>
-              <Explore />
-            </Suspense>
-          ),
-        },
+
         {
           path: "/people",
           element: (
             <Suspense>
               <People />
-            </Suspense>
-          ),
-        },
-        {
-          path: "/saved",
-          element: (
-            <Suspense>
-              <Saved />
-            </Suspense>
-          ),
-        },
-        {
-          path: "/reels",
-          element: (
-            <Suspense>
-              <Reels />
-            </Suspense>
-          ),
-        },
-        {
-          path: "/chats",
-          element: (
-            <Suspense>
-              <Chats />
             </Suspense>
           ),
         },
@@ -112,7 +82,7 @@ const Routers = () => {
       path: "*",
       element: (
         <Suspense>
-          <h2>404</h2>
+          <NotFound />
         </Suspense>
       ),
     },

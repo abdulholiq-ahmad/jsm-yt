@@ -12,8 +12,9 @@ import SettingIcon from "@/assets/images/setting.svg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logOut } from "@/redux/slice/auth-slice";
 import { useDispatch } from "react-redux";
+import SkeletonAvatar from "../skeleton/SkeletonAvatar";
 
-const AsideRoutes = ({ data }) => {
+const AsideRoutes = ({ data, isLoading }) => {
   const routes = [
     {
       title: "Home",
@@ -70,7 +71,7 @@ const AsideRoutes = ({ data }) => {
       <img src={Logo} alt="Logo" title="Logo" width={171} />
 
       <span className="flex items-center gap-2.5 my-5">
-        <AvatarComponent data={data} />
+        {isLoading ? <SkeletonAvatar /> : <AvatarComponent data={data} />}
         <span className="text-white">
           <h4 className="text-lg font-semibold capitalize tracking-wide">{data?.username}</h4>
           <p className="text-infoText text-sm">{data?.email}</p>

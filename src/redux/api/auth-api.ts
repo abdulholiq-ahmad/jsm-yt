@@ -39,14 +39,6 @@ const authApi = api.injectEndpoints({
         }
       },
     }),
-
-    logOutRequest: build.mutation({
-      query: () => ({
-        url: "/auth/logout",
-        method: "POST",
-      }),
-      invalidatesTags: ["User"],
-    }),
   }),
 });
 

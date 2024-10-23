@@ -7,6 +7,7 @@ const authApi = api.injectEndpoints({
         url: "/api/user/profile",
         params,
       }),
+      providesTags: ["User"],
     }),
     getUsers: build.query({
       query: (params) => ({
@@ -53,12 +54,5 @@ const authApi = api.injectEndpoints({
   }),
 });
 
-export const {
-  useGetUsersQuery,
-  useFollowMutation,
-  useUnFollowMutation,
-  useGetProfileQuery,
-  useGetFeedQuery,
-  useSetPostMutation,
-  useGetReelsQuery,
-} = authApi;
+export const { useGetUsersQuery, useFollowMutation, useUnFollowMutation, useGetProfileQuery, useGetFeedQuery, useSetPostMutation, useGetReelsQuery } =
+  authApi;

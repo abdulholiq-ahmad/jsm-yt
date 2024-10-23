@@ -1,46 +1,20 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import Routers from "./router";
-import { logOut } from "./redux/slice/auth-slice";
 import { useDispatch } from "react-redux";
+import Routers from "./router";
+import { useEffect } from "react";
+import { logOut } from "./redux/slice/auth-slice";
+import { useNavigate } from "react-router-dom";
 
 const App: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const fromRegister = localStorage.getItem("fromRegister") === "true";
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === "token") {
-        dispatch(logOut());
-        navigate("/auth/login");
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    const token = localStorage.getItem("token");
-    const path = window.location.pathname;
-
-    if (path === "/auth/login") {
-      if (token) {
-        if (!fromRegister) {
-          navigate("/");
-        }
-      }
-    } else if (path === "/auth/register") {
-      localStorage.setItem("fromRegister", "true");
-    } else {
-      if (!token) {
-        navigate("/auth/login");
-      }
+    if (!token) {
+      dispatch(logOut());
+      navigate("/auth/login");
     }
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      localStorage.removeItem("fromRegister");
-    };
-  }, [navigate, dispatch, fromRegister]);
+  }, [dispatch]);
 
   return (
     <>
