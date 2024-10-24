@@ -6,14 +6,15 @@ import { FC } from "react";
 
 const Home: FC = () => {
   const { data: feedData } = useGetFeedQuery({ limit: 10 });
+  console.log(feedData)
 
   return (
     <>
       <h1 className="sr-only">Home feed</h1>
       <div className="flex">
-        <div className="flex flex-col w-full font-inter text-white h-screen">
+        <div className="flex flex-col w-full h-screen font-inter text-white">
           <Header />
-          <main className="w-full bg-aside px-14 overflow-auto h-screen">
+          <main className="w-full bg-aside px-14 overflow-auto h-full">
             <div>
               <h2 className="text-3xl font-bold my-10">Home Feed</h2>
             </div>

@@ -44,3 +44,17 @@ export interface PostData {
   createdAt?: string;
   user?: UserData;
 }
+
+export interface Post {
+  id?: string;
+  content: string[];
+  contentAlt: string;
+  caption: string;
+  location: string;
+  createdAt?: string;
+  user?: UserData;
+}
+
+export interface ErrorMessage {
+  message: string;
+}

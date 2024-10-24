@@ -9,7 +9,7 @@ import ChatsIcon from "@/assets/images/chats.svg";
 import CreatePostIcon from "@/assets/images/create-post.svg";
 import LogOutIcon from "@/assets/images/logout.svg";
 import SettingIcon from "@/assets/images/setting.svg";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logOut } from "@/redux/slice/auth-slice";
 import { useDispatch } from "react-redux";
 import SkeletonAvatar from "../skeleton/SkeletonAvatar";
@@ -67,16 +67,19 @@ const AsideRoutes = ({ data, isLoading }) => {
   const navigate = useNavigate();
 
   return (
-    <aside className=" bg-aside h-screen font-inter pt-12 px-6 text-white border-r border-[#1F1F22] flex flex-col justify-between">
+    <aside className="bg-aside h-[100%] font-inter pt-12 px-6 text-white border-r border-[#1F1F22] flex flex-col overflow-y-auto justify-between">
       <img src={Logo} alt="Logo" title="Logo" width={171} />
 
-      <span className="flex items-center gap-2.5 my-5">
-        {isLoading ? <SkeletonAvatar /> : <AvatarComponent data={data} />}
-        <span className="text-white">
-          <h4 className="text-lg font-semibold capitalize tracking-wide">{data?.username}</h4>
-          <p className="text-infoText text-sm">{data?.email}</p>
+      <Link to={`/profile/${data?.username}`}>
+        {" "}
+        <span className="flex items-center gap-2.5 my-5">
+          {isLoading ? <SkeletonAvatar /> : <AvatarComponent data={data} />}
+          <span className="text-white">
+            <h4 className="text-lg font-semibold capitalize tracking-wide">{data?.username}</h4>
+            <p className="text-infoText text-sm">{data?.email}</p>
+          </span>
         </span>
-      </span>
+      </Link>
       <nav className="">
         <ul className="flex flex-col gap-2">
           {routes.map((route, index) => (

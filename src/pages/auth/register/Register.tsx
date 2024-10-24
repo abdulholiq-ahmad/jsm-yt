@@ -24,7 +24,7 @@ const Register: React.FC = () => {
         <div className="flex items-center justify-center gap-2 mt-4 font-light">
           <p className="text-white">Don’t have an account?</p>
           <Link to="/auth/login" className="text-[#877EFF]">
-            Log in
+            Sign in
           </Link>
         </div>
       </div>
