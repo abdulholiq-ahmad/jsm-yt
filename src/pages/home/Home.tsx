@@ -6,13 +6,13 @@ import { FC } from "react";
 
 const Home: FC = () => {
   const { data: feedData } = useGetFeedQuery({ limit: 10 });
-  console.log(feedData)
+  console.log(feedData);
 
   return (
     <>
       <h1 className="sr-only">Home feed</h1>
       <div className="flex">
-        <div className="flex flex-col w-full h-screen font-inter text-white">
+        <div className="flex flex-col w-full h-full font-inter text-white">
           <Header />
           <main className="w-full bg-aside px-14 overflow-auto h-full">
             <div>
@@ -20,7 +20,6 @@ const Home: FC = () => {
             </div>
             <div className="px-4 py-2 bg-[#09090A] w-full h-full rounded-3xl border border-[#1F1F22]">
               <Post data={feedData?.posts} />
-
             </div>
           </main>
         </div>

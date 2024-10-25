@@ -10,7 +10,7 @@ const Post = ({ data }) => {
   return (
     <div className="text-white">
       {data.map((post) => (
-        <div key={post.id} className="mb-4">
+        <div key={post.id} className="mb-4 flex items-center gap-3">
           <AvatarComponent data={post.owner.photo} />
           <span>
             <h3 className="text-white">{post.title}</h3>

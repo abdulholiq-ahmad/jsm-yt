@@ -58,3 +58,8 @@ export interface Post {
 export interface ErrorMessage {
   message: string;
 }
+
+export interface PeopleProps {
+  username: string;
+  photo: string;
+}
