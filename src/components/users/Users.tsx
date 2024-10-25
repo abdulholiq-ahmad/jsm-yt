@@ -31,7 +31,7 @@ const Users: FC<UserData & UserProps & PartialUserData> = ({ photo, username, fu
           {username}
         </h3>
         <p className="text-[10px] text-[#7878A3] font-inter tracking-wide mb-3 line-clamp-1">Followed by john</p>
-        <button onClick={toggleFollow} className={`p-2 px-4 rounded-lg text-sm font-semibold ${following ? "bg-indigo-400" : "bg-[#877EFF]"}`}>
+        <button onClick={toggleFollow} className={`p-2 px-4 rounded-lg text-sm font-semibold ${following ? "bg-gray-500" : "bg-[#877EFF]"}`}>
           {following ? "Unfollow" : "Follow"}
         </button>
       </div>

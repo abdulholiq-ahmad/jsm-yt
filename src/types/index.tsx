@@ -63,3 +63,12 @@ export interface PeopleProps {
   username: string;
   photo: string;
 }
+
+export interface PostData {
+  _id: number;
+  owner: {
+    photo: string;
+    username: string;
+  };
+  title: string;
+}

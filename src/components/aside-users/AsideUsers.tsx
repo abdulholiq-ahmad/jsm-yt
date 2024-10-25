@@ -56,7 +56,7 @@ const AsideUsers: FC = () => {
     .map((_, index) => <SkeletonUsers key={index} />);
 
   return (
-    <aside className="sticky px-2 pl-6 top-0 right-0 min-w-[420px] bg-[#09090A] h-screen text-white font-inter pt-[48px] overflow-y-auto">
+    <aside className="sticky px-2 pl-6 top-0 right-0 min-w-[420px] bg-[#09090A] h-screen text-white font-inter pt-[48px] pb-[20px] overflow-y-auto">
       <h1 className="sr-only">Aside Users</h1>
       <h2 className="text-2xl font-bold mb-10">Top Creators</h2>
       <div className="w-full grid grid-cols-2 gap-6 pr-4">{isLoading ? userItemSkeleton : userItem}</div>
