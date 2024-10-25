@@ -1,6 +1,7 @@
 import { UserData } from "@/types";
 import { FC, useState } from "react";
 import { PartialUserData } from "../aside-users/AsideUsers";
+import AvatarComponent from "../avatar-component/Avatar";
 
 type UserProps = {
   handleFollow: (username: string) => void;
@@ -22,7 +23,9 @@ const Users: FC<UserData & UserProps & PartialUserData> = ({ photo, username, fu
 
   return (
     <div key={_id} className="border border-[#1F1F22] bg-[#09090A] py-6 px-8 max-w-[190px] max-h-[190px] rounded-3xl">
-      <img className="mx-auto mb-2" src={photo} alt={username} width={54} />
+      <div className="flex items-center justify-center mb-2">
+        <AvatarComponent data={{ photo, username }} />
+      </div>
       <div className="flex flex-col items-center">
         <h3 className="capitalize text-sm font-semibold mb-1" title={fullName}>
           {username}

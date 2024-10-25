@@ -5,10 +5,10 @@ import { FC } from "react";
 
 const ErrorAlert: FC<ErrorMessage> = ({ message }) => {
   return (
-    <Alert variant="destructive" className="bg-[#09090A]">
-      <ExclamationTriangleIcon className="h-4 w-4" />
-      <AlertTitle>Error</AlertTitle>
-      <AlertDescription>{message}</AlertDescription>
+    <Alert variant="default" className="bg-red-500 absolute top-5 left-2/4 -translate-x-2/4 w-[350px]">
+      <ExclamationTriangleIcon className="h-4 w-4" style={{ color: "white" }} />
+      <AlertTitle className="text-white">Error</AlertTitle>
+      <AlertDescription className="text-white">{message}</AlertDescription>
     </Alert>
   );
 };

@@ -8,8 +8,17 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import React, { useEffect } from "react";
 import { useRegisterRequestMutation } from "@/redux/api/auth-api";
 import { useNavigate } from "react-router-dom";
+import ErrorAlert from "../alert/ErrorAlert";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { SerializedError } from "@reduxjs/toolkit";
 
-// Validatsiya uchun zod
+interface FormRegisterProps {
+  isSuccess: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  error: FetchBaseQueryError | SerializedError | undefined;
+}
+
 const formSchema = z.object({
   firstname: z.string().min(3, "Firstname is required").max(50, "Firstname must be less than 50 characters"),
   lastname: z.string().min(3, "Lastname is required").max(50, "Lastname must be less than 50 characters"),
@@ -19,7 +28,7 @@ const formSchema = z.object({
 });
 
 const FormRegister: React.FC = () => {
-  const [register, { isSuccess, isLoading, isError, error }] = useRegisterRequestMutation();
+  const [register, { isSuccess, isLoading, isError, error }] = useRegisterRequestMutation<FormRegisterProps>();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,6 +64,7 @@ const FormRegister: React.FC = () => {
 
   return (
     <Form {...form}>
+      {error && isError ? <ErrorAlert message={error?.data?.message} /> : null}
       <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-5">
         <FormField
           control={form.control}
@@ -148,11 +158,7 @@ const FormRegister: React.FC = () => {
           )}
         />
 
-        <Button
-          disabled={isLoading}
-          type="submit"
-          className="bg-[#877EFF] w-full py-5 rounded-sm hover:bg-[#6F66E6] focus-visible:bg-[#6F66E6]/7"
-        >
+        <Button disabled={isLoading} type="submit" className="bg-[#877EFF] w-full py-5 rounded-sm hover:bg-[#6F66E6] focus-visible:bg-[#6F66E6]/7">
           {isLoading ? (
             <>
               <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> Please wait

@@ -20,6 +20,7 @@ const Home: FC = () => {
             </div>
             <div className="px-4 py-2 bg-[#09090A] w-full h-full rounded-3xl border border-[#1F1F22]">
               <Post data={feedData?.posts} />
+
             </div>
           </main>
         </div>
