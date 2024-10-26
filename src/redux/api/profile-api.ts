@@ -9,7 +9,14 @@ const postApi = api.injectEndpoints({
       }),
       providesTags: ["Profile"],
     }),
+    getAllPosts: build.query({
+      query: ({ username }) => ({
+        url: `api/post/${username}`,
+        method: "GET",
+      }),
+      providesTags: ["Post"],
+    }),
   }),
 });
 
-export const { useGetSingleProfileQuery } = postApi;
+export const { useGetSingleProfileQuery, useGetAllPostsQuery } = postApi;
