@@ -64,7 +64,8 @@ const AsideUsers: FC = () => {
         <h2 className="text-2xl font-bold">Top Creators</h2>
 
         <Link to={"/people"} className="flex items-center gap-1 text-[#877EFF] hover:underline">
-          See all <MdKeyboardArrowRight className="size-6" />
+          See all
+          <MdKeyboardArrowRight className="size-6" />
         </Link>
       </span>
       <div className="w-full grid grid-cols-2 gap-6 pr-4">{isLoading ? userItemSkeleton : userItem}</div>

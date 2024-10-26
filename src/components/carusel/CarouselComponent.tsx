@@ -29,7 +29,7 @@ const CarouselComponent: FC<{ data: VideoData[]; contentAlt: string }> = ({ data
   }, [api]);
 
   return (
-    <div className="mx-auto max-w-full bg-transparent">
+    <div className="mx-auto max-w-full bg-transparent ">
       <Carousel setApi={setApi} className="w-full max-w-full bg-transparent">
         <CarouselContent>
           {data.map((media, index) => (
@@ -41,7 +41,7 @@ const CarouselComponent: FC<{ data: VideoData[]; contentAlt: string }> = ({ data
                       <source src={media.url.url} type="video/mp4" />
                     </video>
                   ) : (
-                    <img className="object-contain w-full h-full" src={media.url.url} alt={contentAlt} />
+                    <img className="object-contain w-full h-full rounded-md" src={media.url.url} alt={contentAlt} />
                   )}
                   {media.url <= "0" && <p>No media available</p>}
                 </CardContent>

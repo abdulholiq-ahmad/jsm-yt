@@ -5,7 +5,6 @@ import AddPhoto from "@/components/add-photo/AddPhoto";
 import LocationInput from "@/components/location-input/LocationInput";
 import AltPhoto from "@/components/alt-photo/AltPhoto";
 import { useSetPostMutation } from "@/redux/api/user-api";
-import { useNavigate } from "react-router-dom";
 
 const CreatePost: FC = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -13,47 +12,46 @@ const CreatePost: FC = () => {
   const [caption, setCaption] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [contentAlt, setContentAlt] = useState<string>("");
-  const [uploadPost] = useSetPostMutation({});
-
-  const navigate = useNavigate();
+  const [uploadPost, { isLoading }] = useSetPostMutation();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files as FileList);
-    const newFileURLs = selectedFiles.map((file) => URL.createObjectURL(file));
     setFiles(selectedFiles);
+    const newFileURLs = selectedFiles.map((file) => URL.createObjectURL(file));
     setFileURLs(newFileURLs);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
 
-    files.forEach((file) => {
-      formData.append("images", file);
-    });
+    const content = files.map((file) => ({
+      url: URL.createObjectURL(file),
+      type: file.type.startsWith("video/") ? "VIDEO" : "IMAGE",
+    }));
 
     const newPost = {
-      content: fileURLs,
+      content,
       caption,
       location,
       content_alt: contentAlt,
+      title: contentAlt,
     };
 
     uploadPost(newPost)
       .unwrap()
-      .then((res) => console.log(res))
-      .finally(() => {
+      .then((res) => {
+        console.log(res);
         setFiles([]);
         setFileURLs([]);
         setCaption("");
         setLocation("");
         setContentAlt("");
-        navigate("/");
-      });
+      })
+      .catch((error) => console.error("Error uploading post:", error));
   };
 
   return (
-    <div className="flex w-full font-inter text-white bg-aside h-full">
+    <div className="flex w-full font-inter text-white bg-aside h-full py-5">
       <div className="w-full px-14 pt-20">
         <div className="flex items-center gap-2 mb-6">
           <img className="invert brightness-0" src={createPostImg} alt="Create Post Img" width={36} />
@@ -66,8 +64,8 @@ const CreatePost: FC = () => {
           <LocationInput handleOnChange={(value) => setLocation(value)} value={location} />
           <AltPhoto handleOnChange={(value) => setContentAlt(value)} value={contentAlt} />
 
-          <button className="inline-block p-2 bg-hoverPrimary rounded-lg max-w-[120px] ml-auto" type="submit">
-            Share Post
+          <button disabled={isLoading} type="submit" className="inline-block p-2 bg-hoverPrimary rounded-lg max-w-[120px] ml-auto">
+            {isLoading ? "Please wait..." : "Share Post"}
           </button>
         </form>
       </div>

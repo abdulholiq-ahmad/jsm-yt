@@ -14,21 +14,21 @@ const Home: FC = () => {
   const [loading, setLoading] = useState(false);
 
   const loadMorePosts = () => {
-    if (loading) return;
+    if (loading || !feedData) return;
     setLoading(true);
     setLimit((prev) => prev + limit);
   };
 
   useEffect(() => {
-    if (!feedData || !feedData.posts) return;
-
-    setLoading(false);
+    if (feedData && feedData.posts) {
+      setLoading(false);
+    }
   }, [feedData]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       const target = entries[0];
-      if (target.isIntersecting) {
+      if (target.isIntersecting && feedData?.posts.length > limit) {
         loadMorePosts();
       }
     });
@@ -71,7 +71,7 @@ const Home: FC = () => {
                     <Post data={post} refetch={refetch} />
                   </div>
                 ))}
-                {isFetching && SkeletonItem}
+                {(isFetching || loading) && SkeletonItem}
               </div>
             </div>
           </main>
