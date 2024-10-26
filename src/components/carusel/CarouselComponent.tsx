@@ -7,7 +7,7 @@ interface VideoData {
   url: string;
 }
 
-const CarouselComponent: FC<{ data: VideoData[] }> = ({ data }) => {
+const CarouselComponent: FC<{ data: VideoData[]; contentAlt: string }> = ({ data, contentAlt }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [current, setCurrent] = useState(1);
   const [count, setCount] = useState(0);
@@ -41,7 +41,7 @@ const CarouselComponent: FC<{ data: VideoData[] }> = ({ data }) => {
                       <source src={media.url.url} type="video/mp4" />
                     </video>
                   ) : (
-                    <img className="object-contain w-full h-full" src={media.url.url} alt={`Slide ${index + 1}`} />
+                    <img className="object-contain w-full h-full" src={media.url.url} alt={contentAlt} />
                   )}
                   {media.url <= "0" && <p>No media available</p>}
                 </CardContent>

@@ -41,7 +41,7 @@ const AsideUsers: FC = () => {
     return (
       <Users
         key={item?._id ?? ""}
-        photo={import.meta.env.VITE_API_BASE_URL + item?.photo}
+        photo={item?.photo}
         username={item?.username}
         fullName={item?.fullName}
         _id={item?._id ?? ""}

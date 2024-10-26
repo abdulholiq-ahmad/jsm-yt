@@ -20,8 +20,29 @@ const SkeletonPost: FC = () => {
         <Skeleton className="h-[400px] w-full" />
       </div>
 
-      <div className="my-4">
-        <Skeleton className="h-10 w-10" />
+      <div className="flex gap-3 items-center">
+        <div className="my-4">
+          <Skeleton className="h-8 w-8" />
+        </div>
+
+        <div className="my-4">
+          <Skeleton className="h-8 w-8" />
+        </div>
+
+        <div className="my-4">
+          <Skeleton className="h-8 w-8" />
+        </div>
+
+        <div className="my-4 ml-auto">
+          <Skeleton className="h-8 w-8" />
+        </div>
+      </div>
+
+      <div className="flex items-center space-x-2">
+        <Skeleton className="h-14 w-14 rounded-full" />
+        <div className="space-y-2 w-full">
+          <Skeleton className="h-5 w-full" />
+        </div>
       </div>
     </div>
   );

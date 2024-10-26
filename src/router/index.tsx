@@ -4,16 +4,13 @@ import { SuspenseComponent as Suspense } from "../utils";
 import NotFound from "@/pages/not-found/NotFound";
 
 const Home: LazyExoticComponent<any> = lazy(() => import("../pages/home/Home"));
-const Explore: LazyExoticComponent<any> = lazy(() => import("../pages/explore/Explore"));
 const People: LazyExoticComponent<any> = lazy(() => import("../pages/people/People"));
-const Saved: LazyExoticComponent<any> = lazy(() => import("../pages/saved/Saved"));
-const Reels: LazyExoticComponent<any> = lazy(() => import("../pages/reels/Reels"));
-const Chats: LazyExoticComponent<any> = lazy(() => import("../pages/chats/Chats"));
 const CreatePost: LazyExoticComponent<any> = lazy(() => import("../pages/create-post/CreatePost"));
 const Layout: LazyExoticComponent<any> = lazy(() => import("../pages/layout/Layout"));
 const Auth: LazyExoticComponent<any> = lazy(() => import("../pages/auth/Auth"));
 const Login: LazyExoticComponent<any> = lazy(() => import("../pages/auth/login/Login"));
 const Register: LazyExoticComponent<any> = lazy(() => import("../pages/auth/register/Register"));
+const Profile: LazyExoticComponent<any> = lazy(() => import("../pages/profile/Profile"));
 
 const Routers = () => {
   return useRoutes([
@@ -47,6 +44,14 @@ const Routers = () => {
           element: (
             <Suspense>
               <CreatePost />
+            </Suspense>
+          ),
+        },
+        {
+          path: `/profile/:username`,
+          element: (
+            <Suspense>
+              <Profile />
             </Suspense>
           ),
         },

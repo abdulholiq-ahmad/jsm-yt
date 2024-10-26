@@ -8,15 +8,15 @@ import { PostData } from "@/types";
 import SkeletonPost from "@/components/skeleton/SkeletonPost";
 
 const Home: FC = () => {
-  const [limit, setLimit] = useState(10);
-  const { data: feedData, refetch } = useGetFeedQuery({ limit });
+  const [limit, setLimit] = useState(5);
+  const { data: feedData, refetch, isFetching } = useGetFeedQuery({ limit });
   const observerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
 
   const loadMorePosts = () => {
     if (loading) return;
     setLoading(true);
-    setLimit((prev) => prev + 10);
+    setLimit((prev) => prev + limit);
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Home: FC = () => {
     };
   }, [observerRef, feedData]);
 
-  const SkeletonItem = Array.from({ length: 10 }, (_, index) => <SkeletonPost key={index} />);
+  const SkeletonItem = Array.from({ length: 1 }, (_, index) => <SkeletonPost key={index} />);
 
   return (
     <>
@@ -55,9 +55,9 @@ const Home: FC = () => {
           <main className="w-full bg-aside px-14 overflow-auto h-full">
             <div className="flex items-center justify-between">
               <h2 className="text-3xl font-bold my-10">Home Feed</h2>
-              <button className="capitalize flex items-center gap-1 rounded-md bg-[#101012] hover:bg-[#1F1F22] transition-all duration-100 ease-in py-3 px-4">
+              <button className="capitalize flex items-center gap-1 rounded-md bg-[#101012] hover:bg-[#1F1F22] transition-all duration-100 ease-in py-1 px-3">
                 All
-                <CgSortAz className="size-8 text-[#5C5C7B]" />
+                <CgSortAz className="size-6 text-[#5C5C7B]" />
               </button>
             </div>
             <div className="flex flex-col gap-4">
@@ -71,8 +71,8 @@ const Home: FC = () => {
                     <Post data={post} refetch={refetch} />
                   </div>
                 ))}
+                {isFetching && SkeletonItem}
               </div>
-              <div className="flex flex-col gap-4">{true && SkeletonItem}</div>
             </div>
           </main>
         </div>

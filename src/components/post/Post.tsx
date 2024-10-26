@@ -9,8 +9,11 @@ import LikeIcon from "@/assets/images/heart.svg";
 import SendIcon from "@/assets/images/send-icon.svg";
 import LikedIcon from "@/assets/images/heart-red.svg";
 import CommentIcon from "@/assets/images/comment-icon.svg";
+import ShareIcon from "@/assets/images/share-icon.svg";
+import SaveIcon from "@/assets/images/save-icon.svg";
 import { useToggleLikeMutation } from "@/redux/api/post-api";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface PostProps {
   data: PostData;
@@ -18,6 +21,7 @@ interface PostProps {
 }
 
 const Post = ({ data, refetch }: PostProps) => {
+  console.log(data);
   const formattedDate: string = data?.createdAt ? dayjs(data.createdAt).format("D MMMM [at] hh:mm A") : "Unknown date";
   const { data: profile } = useGetProfileQuery({});
   const [isLiked, setIsLiked] = useState(data?.likes?.includes(profile?._id) || false);
@@ -50,7 +54,9 @@ const Post = ({ data, refetch }: PostProps) => {
         <span className="flex items-start gap-2">
           <AvatarComponent data={data?.owner} />
           <span>
-            <p className="capitalize text-lg font-bold">{data?.owner?.username}</p>
+            <Link to={`/profile/${data?.owner?.username}`}>
+              <p className="capitalize text-lg font-bold">{data?.owner?.username}</p>
+            </Link>
             <p className="text-sm font-medium leading-tight text-[#7878A3]">{formattedDate}</p>
           </span>
           <button className="ml-auto hover:opacity-90">
@@ -63,7 +69,7 @@ const Post = ({ data, refetch }: PostProps) => {
       </div>
 
       {data.content.length > 0 ? (
-        <CarouselComponent data={data.content.map((url) => ({ type: "VIDEO", url }))} />
+        <CarouselComponent data={data.content.map((url) => ({ type: "VIDEO", url }))} contentAlt={data?.contentAlt} />
       ) : (
         <div className="flex flex-col items-center justify-center w-full h-[400px] bg-gray-300 rounded-md">
           <BsFolderX className="size-20 text-[#877EFF]" />
@@ -83,6 +89,16 @@ const Post = ({ data, refetch }: PostProps) => {
             <img src={CommentIcon} alt="Like icon" width={20} />
           </button>
           <span className="text-sm font-semibold">{data?.comments?.length > 0 && data?.comments?.length}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <button className="hover:opacity-80">
+            <img src={ShareIcon} alt="Like icon" width={20} />
+          </button>
+        </div>
+        <div className="flex items-center gap-1 ml-auto">
+          <button className="hover:opacity-80">
+            <img src={SaveIcon} alt="Like icon" width={20} />
+          </button>
         </div>
       </div>
 
