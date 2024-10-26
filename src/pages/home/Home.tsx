@@ -5,17 +5,18 @@ import Header from "@/components/header/Header";
 import Post from "@/components/post/Post";
 import { CgSortAz } from "react-icons/cg";
 import { PostData } from "@/types";
+import SkeletonPost from "@/components/skeleton/SkeletonPost";
 
 const Home: FC = () => {
-  const [limit, setLimit] = useState(20); // Initial limit for posts
+  const [limit, setLimit] = useState(10);
   const { data: feedData, refetch } = useGetFeedQuery({ limit });
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  const observerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
 
   const loadMorePosts = () => {
     if (loading) return;
     setLoading(true);
-    setLimit((prev) => prev + 20);
+    setLimit((prev) => prev + 10);
   };
 
   useEffect(() => {
@@ -43,6 +44,8 @@ const Home: FC = () => {
     };
   }, [observerRef, feedData]);
 
+  const SkeletonItem = Array.from({ length: 10 }, (_, index) => <SkeletonPost key={index} />);
+
   return (
     <>
       <h1 className="sr-only">Home feed</h1>
@@ -58,17 +61,19 @@ const Home: FC = () => {
               </button>
             </div>
             <div className="flex flex-col gap-4">
-              {feedData?.posts?.map((post: PostData, index: number) => (
-                <div
-                  key={post._id}
-                  className="px-4 py-2 bg-[#09090A] w-full rounded-3xl border border-[#1F1F22]"
-                  ref={index === feedData.posts.length - 1 ? observerRef : null} // Set ref for last item
-                >
-                  <Post data={post} />
-                </div>
-              ))}
+              <div className="flex flex-col gap-4">
+                {feedData?.posts?.map((post: PostData, index: number) => (
+                  <div
+                    key={post._id}
+                    className="px-4 py-2 bg-[#09090A] w-full rounded-3xl border border-[#1F1F22]"
+                    ref={index === feedData.posts.length - 1 ? observerRef : null}
+                  >
+                    <Post data={post} refetch={refetch} />
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col gap-4">{true && SkeletonItem}</div>
             </div>
-            {loading && <p className="text-center text-gray-500">Loading more posts...</p>} {/* Loading indicator */}
           </main>
         </div>
         <AsideUsers />

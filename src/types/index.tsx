@@ -71,4 +71,7 @@ export interface PostData {
     username: string;
   };
   title: string;
+  likes: string[];
+  comments: string[];
+  refetch: () => void;
 }

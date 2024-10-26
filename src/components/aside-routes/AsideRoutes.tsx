@@ -13,8 +13,9 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logOut } from "@/redux/slice/auth-slice";
 import { useDispatch } from "react-redux";
 import SkeletonAvatar from "../skeleton/SkeletonAvatar";
+import { PropTypes } from "react";
 
-const AsideRoutes = ({ data, isLoading }) => {
+const AsideRoutes = ({ data, isLoading }: { data: any; isLoading: PropTypes.bool }) => {
   const routes = [
     {
       title: "Home",
@@ -71,7 +72,6 @@ const AsideRoutes = ({ data, isLoading }) => {
       <img src={Logo} alt="Logo" title="Logo" width={171} />
 
       <Link to={`/profile/${data?.username}`}>
-        {" "}
         <span className="flex items-center gap-2.5 my-5">
           {isLoading ? <SkeletonAvatar /> : <AvatarComponent data={data} />}
           <span className="text-white">

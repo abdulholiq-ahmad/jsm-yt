@@ -1,8 +1,13 @@
+import { FC, useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
-import { useEffect, useState } from "react";
 
-const CarouselComponent = ({ data }: { data: { url: string }[] }) => {
+interface VideoData {
+  type: string;
+  url: string;
+}
+
+const CarouselComponent: FC<{ data: VideoData[] }> = ({ data }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [current, setCurrent] = useState(1);
   const [count, setCount] = useState(0);
@@ -27,11 +32,18 @@ const CarouselComponent = ({ data }: { data: { url: string }[] }) => {
     <div className="mx-auto max-w-full bg-transparent">
       <Carousel setApi={setApi} className="w-full max-w-full bg-transparent">
         <CarouselContent>
-          {data.map((photo, index) => (
+          {data.map((media, index) => (
             <CarouselItem key={index}>
-              <Card>
-                <CardContent className="bg-transparent h-[500px]">
-                  <img className="object-contain" src={photo.url} alt={`Slide ${index + 1}`} />
+              <Card className="border-none">
+                <CardContent className="bg-transparent h-[500px] p-0">
+                  {data.length > 0 && media.url.type === "VIDEO" ? (
+                    <video className="object-contain w-full h-full" slot="media" controls>
+                      <source src={media.url.url} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img className="object-contain w-full h-full" src={media.url.url} alt={`Slide ${index + 1}`} />
+                  )}
+                  {media.url <= "0" && <p>No media available</p>}
                 </CardContent>
               </Card>
             </CarouselItem>
@@ -40,12 +52,11 @@ const CarouselComponent = ({ data }: { data: { url: string }[] }) => {
 
         {count > 1 && (
           <>
-            <CarouselPrevious className="absolute left-0 text-white bg-[#877EFF] hover:bg-[#877EFF] transition-colors duration-300 ease-in rounded-full p-2" />
-            <CarouselNext className="absolute right-0 text-white bg-[#877EFF] hover:bg-[#877EFF] transition-colors duration-300 ease-in rounded-full p-2" />
+            <CarouselPrevious className="absolute left-2 bg-gray-700 hover:bg-gray-800 hover:text-white" />
+            <CarouselNext className="absolute right-2 bg-gray-700 hover:bg-gray-800 hover:text-white" />
           </>
         )}
       </Carousel>
-
       <div className="py-2 text-center text-sm text-muted-foreground">{count > 1 ? `Slide ${current} of ${count}` : ""}</div>
     </div>
   );
