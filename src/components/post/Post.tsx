@@ -11,7 +11,7 @@ import LikedIcon from "@/assets/images/heart-red.svg";
 import CommentIcon from "@/assets/images/comment-icon.svg";
 import ShareIcon from "@/assets/images/share-icon.svg";
 import SaveIcon from "@/assets/images/save-icon.svg";
-import { useToggleLikeMutation } from "@/redux/api/post-api";
+import { usePostCommentMutation, useToggleLikeMutation } from "@/redux/api/post-api";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -24,7 +24,9 @@ const Post = ({ data, refetch }: PostProps) => {
   console.log(data);
   const formattedDate: string = data?.createdAt ? dayjs(data.createdAt).format("D MMMM [at] hh:mm A") : "Unknown date";
   const { data: profile } = useGetProfileQuery({});
+  const [postComment] = usePostCommentMutation({});
   const [isLiked, setIsLiked] = useState(data?.likes?.includes(profile?._id) || false);
+  const [comment, setComment] = useState("");
 
   const renderCaption = (caption: string) => {
     const parts = caption.split(/(#\w+)/g);
@@ -45,6 +47,18 @@ const Post = ({ data, refetch }: PostProps) => {
   const handleToggleLike = async (id: number) => {
     setIsLiked((prev) => !prev);
     await like({ id }).unwrap();
+    refetch();
+  };
+
+  const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(event.target.value);
+  };
+
+  const handleComment = (id: number, body: string) => {
+    const newComment = { message: body };
+    postComment({ id, body: newComment })
+      .unwrap()
+      .then(() => setComment(""));
     refetch();
   };
 
@@ -106,12 +120,14 @@ const Post = ({ data, refetch }: PostProps) => {
         <AvatarComponent data={profile} />
         <div className="relative w-full flex items-center">
           <textarea
+            onChange={(e) => handleCommentChange(e)}
+            value={comment}
             placeholder="Write your comment..."
             rows={1}
             className="bg-[#101012] resize-none placeholder:text-base placeholder:text-[#5C5C7B] w-full rounded-xl px-3 py-2 outline-none focus-within:ring-2 focus-within:ring-hoverPrimary focus-within:border-primary-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#1F1F22]"
             id="comment"
           ></textarea>
-          <button className="absolute p-3 right-0 top-2 hover:opacity-80">
+          <button onClick={() => handleComment(data?._id, comment)} className="absolute p-3 right-0 top-2 hover:opacity-80">
             <img src={SendIcon} alt="Send icon" width={20} />
           </button>
         </div>

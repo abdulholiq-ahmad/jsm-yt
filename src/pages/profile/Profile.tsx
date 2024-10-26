@@ -12,6 +12,7 @@ import ReelsIcon from "@/assets/images/reels.svg";
 import TaggedIcon from "@/assets/images/tagged.svg";
 import ProfilePost from "@/components/post/ProfilePost";
 import NotFoundPost from "@/components/notfound-post/NotFoundPost";
+import { CgSortAz } from "react-icons/cg";
 
 const Profile: FC = () => {
   const { username } = useParams();
@@ -118,19 +119,25 @@ const Profile: FC = () => {
             </div>
           </div>
         </div>
-        <div className="mt-5 flex items-center bg-[#09090A] border border-[#101012] rounded-md">
-          <Link className="flex items-center justify-center gap-3 px-12 py-3 bg-[#101012] hover:bg-[#1F1F22]" to={"*"}>
-            <img src={PostsIcon} alt="Posts icon" width={20} />
-            <p className="font-medium">Posts</p>
-          </Link>
-          <Link className="flex items-center justify-center gap-3 px-12 py-3 hover:bg-[#101012]" to={"*"}>
-            <img src={ReelsIcon} alt="Reels icon" width={20} />
-            <p className="font-medium">Reels</p>
-          </Link>
-          <Link className="flex items-center justify-center gap-3 px-12 py-3 hover:bg-[#101012]" to={"*"}>
-            <img src={TaggedIcon} alt="Tagged icon" width={20} />
-            <p className="font-medium">Tagged</p>
-          </Link>
+        <div className="flex items-center justify-between w-full">
+          <div className="mt-5 flex items-center bg-[#09090A] border border-[#101012] rounded-md">
+            <Link className="flex items-center justify-center gap-3 px-12 py-3 bg-[#101012] hover:bg-[#1F1F22]" to={"*"}>
+              <img src={PostsIcon} alt="Posts icon" width={20} />
+              <p className="font-medium">Posts</p>
+            </Link>
+            <Link className="flex items-center justify-center gap-3 px-12 py-3 hover:bg-[#101012]" to={"*"}>
+              <img src={ReelsIcon} alt="Reels icon" width={20} />
+              <p className="font-medium">Reels</p>
+            </Link>
+            <Link className="flex items-center justify-center gap-3 px-12 py-3 hover:bg-[#101012]" to={"*"}>
+              <img src={TaggedIcon} alt="Tagged icon" width={20} />
+              <p className="font-medium">Tagged</p>
+            </Link>
+          </div>
+          <button className=" capitalize flex items-center gap-1 rounded-md bg-[#101012] hover:bg-[#1F1F22] transition-all duration-100 ease-in py-3 px-4">
+            All
+            <CgSortAz className="size-6 text-[#5C5C7B]" />
+          </button>
         </div>
         <div className={`${profile?.posts?.length > 0 ? "grid grid-cols-3 gap-4" : "pt-5"}`}>
           {profile?.posts?.length > 0 ? ProfilePostItem : <NotFoundPost />}

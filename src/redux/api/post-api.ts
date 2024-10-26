@@ -9,7 +9,15 @@ const postApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Post"],
     }),
+    postComment: build.mutation({
+      query: ({ id, body }) => ({
+        url: `api/comment/${id}`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Post"],
+    }),
   }),
 });
 
-export const { useToggleLikeMutation } = postApi;
+export const { useToggleLikeMutation, usePostCommentMutation } = postApi;

@@ -55,7 +55,7 @@ const Home: FC = () => {
           <main className="w-full bg-aside px-14 overflow-auto h-full">
             <div className="flex items-center justify-between">
               <h2 className="text-3xl font-bold my-10">Home Feed</h2>
-              <button className="capitalize flex items-center gap-1 rounded-md bg-[#101012] hover:bg-[#1F1F22] transition-all duration-100 ease-in py-1 px-3">
+              <button className="capitalize flex items-center gap-1 rounded-md bg-[#101012] hover:bg-[#1F1F22] transition-all duration-100 ease-in py-3 px-4">
                 All
                 <CgSortAz className="size-6 text-[#5C5C7B]" />
               </button>
